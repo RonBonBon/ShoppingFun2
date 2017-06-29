@@ -1,6 +1,8 @@
 package com.arichafamily.shoppingfun.models;
 
-public class UserList {
+import java.io.Serializable;
+
+public class UserList implements Serializable {
     //Properties
     private String name; //ex: Groceries
     private String ownerID; //ex: oisdf9i23ri92rf

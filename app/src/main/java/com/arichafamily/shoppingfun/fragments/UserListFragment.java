@@ -80,10 +80,17 @@ public class UserListFragment extends Fragment {
         }
 
         @Override
+        public UserListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            UserListViewHolder vh = super.onCreateViewHolder(parent, viewType);
+            vh.userListsFragment = fragment;
+            return vh;
+        }
+
+        @Override
         protected void populateViewHolder(UserListViewHolder viewHolder, UserList model, int position) {
             viewHolder.tvListName.setText(model.getName());
             Glide.with(fragment.getContext()).load(model.getOwnerImage()).into(viewHolder.ivProfile);
-            viewHolder.userListsFragment = fragment;
+            viewHolder.model = model;
         }
 
         //1)ViewHolder
@@ -93,13 +100,13 @@ public class UserListFragment extends Fragment {
             TextView tvListName;
             FloatingActionButton fabShare;
             Fragment userListsFragment;
+            UserList model;
 
             public UserListViewHolder(View itemView) {
                 super(itemView);
                 ivProfile = (ImageView) itemView.findViewById(R.id.ivUserProfile);
                 tvListName = (TextView) itemView.findViewById(R.id.tvListName);
                 fabShare = (FloatingActionButton) itemView.findViewById(R.id.fabShare);
-
                 fabShare.setOnClickListener(this);
             }
 

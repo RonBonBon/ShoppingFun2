@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.arichafamily.shoppingfun.R;
 import com.arichafamily.shoppingfun.models.User;
+import com.arichafamily.shoppingfun.models.UserList;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,12 +25,22 @@ import butterknife.Unbinder;
 
 public class ShareFragment extends BottomSheetDialogFragment {
 
-
     @BindView(R.id.rvUsers)
     RecyclerView rvUsers;
 
     Unbinder unbinder;
     UserAdapter adapter;
+
+    UserList model;
+
+    public static ShareFragment newInstance(UserList model) {
+
+        Bundle args = new Bundle();
+
+        ShareFragment fragment = new ShareFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public ShareFragment() {
         // Required empty public constructor
