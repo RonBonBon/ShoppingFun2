@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
     void sha1() {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("hackeru.edu.shoppingfun", PackageManager.GET_SIGNATURES);
+            PackageInfo info = getPackageManager().getPackageInfo("com.arichafamily.shoppingfun", PackageManager.GET_SIGNATURES);
             for (android.content.pm.Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());

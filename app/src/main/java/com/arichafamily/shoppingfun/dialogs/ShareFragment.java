@@ -34,9 +34,8 @@ public class ShareFragment extends BottomSheetDialogFragment {
     UserList model;
 
     public static ShareFragment newInstance(UserList model) {
-
         Bundle args = new Bundle();
-
+        args.putParcelable("model", model);
         ShareFragment fragment = new ShareFragment();
         fragment.setArguments(args);
         return fragment;
@@ -53,7 +52,7 @@ public class ShareFragment extends BottomSheetDialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_share, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        model = getArguments().getParcelable("model");
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Query query = FirebaseDatabase.getInstance().getReference("Users");
