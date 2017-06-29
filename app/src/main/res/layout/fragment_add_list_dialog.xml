@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    tools:context="com.arichafamily.shoppingfun.dialogs.AddListDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:hint="List Name..."
+        android:id="@+id/etListName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/btnAddUserList"
+        android:layout_toStartOf="@+id/btnAddUserList" />
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btnAddUserList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderColor="#FFFFFF"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="#2289de"
+        fancy:fb_focusColor="#297ca9"
+        fancy:fb_fontIconResource="&#xf196;"
+        fancy:fb_iconPosition="right"
+        fancy:fb_radius="8dp"
+        fancy:fb_text="Add"
+        fancy:fb_textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:background="@drawable/s_cart"
+        android:layout_alignParentTop="@+id/etListName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
