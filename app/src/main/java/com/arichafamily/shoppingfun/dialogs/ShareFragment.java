@@ -16,6 +16,7 @@ import com.arichafamily.shoppingfun.models.User;
 import com.arichafamily.shoppingfun.models.UserList;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -56,7 +57,7 @@ public class ShareFragment extends BottomSheetDialogFragment {
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Query query = FirebaseDatabase.getInstance().getReference("Users");
-        adapter = new UserAdapter(getContext(), query);
+        adapter = new UserAdapter(getContext(), query, model);
         rvUsers.setAdapter(adapter);
 
         return view;
@@ -71,10 +72,12 @@ public class ShareFragment extends BottomSheetDialogFragment {
     public static class UserAdapter extends FirebaseRecyclerAdapter<User, UserAdapter.UserViewHolder> {
 
         private Context context = null;
+        private UserList userList;
 
-        public UserAdapter(Context context, Query query) {
+        public UserAdapter(Context context, Query query, UserList userList) {
             super(User.class, R.layout.share_item, UserViewHolder.class, query);
             this.context = context;
+            this.userList = userList;
         }
 
         @Override
@@ -85,18 +88,31 @@ public class ShareFragment extends BottomSheetDialogFragment {
 
             //bind the user image from the model to the ImageView in VH
             Glide.with(context).load(model.getProfileImage()).into(viewHolder.ivProfile);
+            viewHolder.user = model;
+            viewHolder.userList = userList;
         }
 
         //ViewHolder
-        public static class UserViewHolder extends RecyclerView.ViewHolder {
+        public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             ImageView ivProfile;
             TextView tvUserName;
+            UserList userList;
+            User user;
 
             public UserViewHolder(View itemView) {
                 super(itemView);
                 ivProfile = (ImageView) itemView.findViewById(R.id.ivProfile);
                 tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
+                itemView.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View v) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserLists")
+                        .child(user.getUid())
+                        .child(userList.getListID());
+                ref.setValue(userList);
             }
         }
     }
