@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arichafamily.shoppingfun.R;
 import com.arichafamily.shoppingfun.models.User;
 import com.arichafamily.shoppingfun.models.UserList;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -93,7 +95,7 @@ public class ShareFragment extends BottomSheetDialogFragment {
         }
 
         //ViewHolder
-        public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnSuccessListener<Void> {
 
             ImageView ivProfile;
             TextView tvUserName;
@@ -112,7 +114,12 @@ public class ShareFragment extends BottomSheetDialogFragment {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserLists")
                         .child(user.getUid())
                         .child(userList.getListID());
-                ref.setValue(userList);
+                ref.setValue(userList).addOnSuccessListener(this);
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(itemView.getContext(), "Success", Toast.LENGTH_SHORT).show();
             }
         }
     }
